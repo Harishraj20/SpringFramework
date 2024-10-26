@@ -1,8 +1,11 @@
 package com.example.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,21 +22,30 @@ public class EmployeeController {
         return "welcome";
     }
 
-    @GetMapping("addEmployees")
+    @GetMapping("sortedEmployees")
+    public ModelAndView getSortedEmployees() {
+        ModelAndView mv = new ModelAndView("sort");
+        List<Employee> emps = service.fetchAll();
+        mv.addObject("employees", emps);
+        return mv;
+    }
 
-    public ModelAndView addemp(
+    @PostMapping("addEmployees")
+    public String addEmployee(
             @RequestParam("empId") int id,
             @RequestParam("empname") String name,
             @RequestParam("empage") int age,
             @RequestParam("emprole") String role,
             @RequestParam("empsalary") int salary) {
-
-        ModelAndView mv = new ModelAndView("message");
         Employee emp = new Employee(age, id, name, role, salary);
-        String msg = service.AddEmployee(emp);
+        service.AddEmployee(emp);
 
-        mv.addObject("message", msg);
-        return mv;
+        return "redirect:/sortedEmployees";
     }
+    @PostMapping("deleteEmployee")
+public String deleteEmployee(@RequestParam("empId") int id) {
+    service.deleteEmployeeById(id); 
+    return "redirect:/sortedEmployees"; 
+}
 
 }

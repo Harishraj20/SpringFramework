@@ -9,34 +9,6 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employee List</title>
   </head>
-
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      font-size: 1em;
-      text-align: left;
-      padding-right: 10px;
-      padding-left: 10px;
-    }
-
-    th,
-    td {
-      padding: 10px;
-      border: 1px solid #0a0404;
-    }
-
-    th {
-      background-color: #1f0a50;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    tr:nth-child(even) {
-      background-color: #beb3d6;
-    }
-  </style>
   <body>
     <table border="1">
       <tr>
@@ -45,6 +17,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <th>Employee Age</th>
         <th>Employee Role</th>
         <th>Employee Salary</th>
+        <th>Actions</th>
       </tr>
       <c:forEach var="employee" items="${employees}">
         <tr>
@@ -53,6 +26,12 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
           <td>${employee.age}</td>
           <td>${employee.role}</td>
           <td>${employee.salary}</td>
+          <td>
+            <form action="deleteEmployee" method="post" style="display:inline;">
+                <input type="hidden" name="empId" value="${employee.id}" />
+                <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this employee; ${employee.id}?');" />
+            </form>
+        </td>
         </tr>
       </c:forEach>
     </table>

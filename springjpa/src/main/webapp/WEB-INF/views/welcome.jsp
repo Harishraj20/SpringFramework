@@ -10,7 +10,7 @@
   </head>
   <body>
     <p>Welcome To Employee Management Page</p>
-    <form action="addEmployees" method="get">
+    <form action="addEmployees" method="post">
       <label for="id"></label>
       <input type="text" placeholder="Enter Employee Id" name="empId" />
       <label for="name"></label>

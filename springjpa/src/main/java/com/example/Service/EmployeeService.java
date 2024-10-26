@@ -19,6 +19,13 @@ public class EmployeeService {
         return repo.findAll();
     }
 
+    public List<Employee> fetchSortedEmployee(){
+        return repo.findAllEmployeesSortedByAge();
+    }
+    public List<Employee> fetchAll(){
+        return repo.findAll();
+    }
+
     public String AddEmployee(Employee emp){
         System.out.println("Into Add Employee Method");
         try{
@@ -32,5 +39,9 @@ public class EmployeeService {
 
         }
 
+    }
+
+    public void deleteEmployeeById(int id) {
+        repo.deleteById(id);
     }
 }
